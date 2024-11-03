@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <script>
+        let selectedOperation = '';
+
+        function selectOperation(button, operation) {
+            // Deselect all buttons
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+
+            // Select the clicked button and store the operation
+            button.classList.add('selected');
+            selectedOperation = operation;
+            console.log(`Selected operation: ${selectedOperation}`);
+        }
+
+        function passOperation(event) {
+            if (!selectedOperation) {
+                alert("Please select an operation.");
+                event.preventDefault();
+            } else {
+                const operationInput = document.createElement("input");
+                operationInput.type = "hidden";
+                operationInput.name = "operation";
+                operationInput.value = selectedOperation;
+                event.target.appendChild(operationInput);
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Info Cards -->
+    <div class="info-card" id="card1">
+        <h3>Developed by:</h3>
+        <p>Hira Datta Dhakal</p>
+        <p>A00108066</p>
+    </div>
+    <div class="info-card" id="card2">
+        <h3>Developed by:</h3>
+        <p>Hira Datta Dhakal</p>
+        <p>A00108066</p>
+    </div>
+    <div class="info-card" id="card3">
+        <h3>Developed by:</h3>
+        <p>Hira Datta Dhakal</p>
+        <p>A00108066</p>
+    </div>
+    <div class="info-card" id="card4">
+        <h3>Developed by:</h3>
+        <p>Hira Datta Dhakal</p>
+        <p>A00108066</p>
+    </div>
+
+    <!-- Calculator Card -->
+    <div class="card" id="calculatorCard">
+        <h2><strong>DOT603 DevOps</strong></h2>
+        <p><strong><em>Welcome to the Calculator!</em></strong></p>
+        <form method="POST" action="/calculate" onsubmit="passOperation(event)">
+            <!-- Number 1 Input Field -->
+            <div class="input-container">
+                <label for="num1">Number 1</label>
+                <input type="number" name="num1" id="num1" placeholder="Enter first number" required>
+            </div>
+        
+            <!-- Number 2 Input Field -->
+            <div class="input-container">
+                <label for="num2">Number 2</label>
+                <input type="number" name="num2" id="num2" placeholder="Enter second number" required>
+            </div>
+        
+            <!-- Operation Buttons -->
+            <div class="button-container">
+                <button type="button" onclick="selectOperation(this, 'add')" class="button outlined">Add</button>
+                <button type="button" onclick="selectOperation(this, 'subtract')" class="button outlined">Subtract</button>
+                <button type="button" onclick="selectOperation(this, 'multiply')" class="button outlined">Multiply</button>
+                <button type="button" onclick="selectOperation(this, 'divide')" class="button outlined">Divide</button>
+                <button type="button" onclick="selectOperation(this, 'power')" class="button outlined">Power</button>
+                <button type="button" onclick="selectOperation(this, 'sqrt')" class="button outlined">Sqrt</button>
+            </div>
+        
+            <!-- Calculate Button -->
+            <button type="submit" class="button calculate">Calculate</button>
+        </form>
+        
+    </div>
+</body>
+</html>

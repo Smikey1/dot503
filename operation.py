@@ -60,7 +60,7 @@ def divide(num1, num2):
     Returns:
         int/float/str: Quotient of num1 divided by num2, or an error message if division by zero.
     '''
-    return num1 / num2 if num2 != 0 else 'Error (divide by zero)'
+    return round(num1 / num2,2) if num2 != 0 else 'Error (divide by zero)'
 
 
 def power(num1, num2):

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <script>
+        let receivedSelectedOperation = '';
+
+    </script>
+</head>
+<body>
+    <!-- Info Cards -->
+    <div class="info-card" id="card1">
+        <h3>Developed by:</h3>
+        <p>Hira Datta Dhakal</p>
+        <p>A00108066</p>
+    </div>
+    <div class="info-card" id="card2">
+        <h3>Developed by:</h3>
+        <p>Hira Datta Dhakal</p>
+        <p>A00108066</p>
+    </div>
+    <div class="info-card" id="card3">
+        <h3>Developed by:</h3>
+        <p>Hira Datta Dhakal</p>
+        <p>A00108066</p>
+    </div>
+    <div class="info-card" id="card4">
+        <h3>Developed by:</h3>
+        <p>Hira Datta Dhakal</p>
+        <p>A00108066</p>
+    </div>
+
+    <!-- Calculator Card -->
+    <div class="card" id="calculatorCard">
+        <h2><strong>DOT603 DevOps</strong></h2>
+        <p><strong><em>Welcome to the Calculator!</em></strong></p>
+        
+        
+        <!-- Display Result -->
+        {% if result is not none %}
+        <h3>Result: {{ result }}</h3>
+        {% endif %}
+        <form action="/" method="get">
+            <button type="submit" class="button calculate">Re-calculate</button>
+        </form>
+    </div>
+</body>
+</html>

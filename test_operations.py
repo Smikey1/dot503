@@ -21,7 +21,7 @@ class TestOperations(unittest.TestCase):
     def test_divide(self):
         # Test division
         self.assertEqual(divide(10, 2), 5)  # Should pass
-        self.assertEqual(divide(10, 0), 'Error (divide by zero)')  # Edge case, should pass
+        self.assertEqual(divide(10, 0), 'ZERO DIVISION Error (divide by zero)')  # Edge case, should pass
 
     def test_power(self):
         # Test power

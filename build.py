@@ -62,13 +62,13 @@ def run_development_server_application():
     subprocess.run([python_path, app_path], check=True)
 
 def run_production_server_application():
-    print("Running the application with Gunicorn...")
+    print("Running the application with Waitress...")
     print("Running on http://127.0.0.1:5000")
-    subprocess.run(["python", "--version"], check=True)
+
     # For Windows, use Waitress instead of Gunicorn
-    from waitress import serve
-    from app import app  # Import your Flask app instance
-    serve(app, host='0.0.0.0', port=5000)  # Run with Waitress
+    python_path = os.path.join(VENV_DIR, "Scripts", "python") if os.name == "nt" else os.path.join(VENV_DIR, "bin", "python")
+    subprocess.run([python_path, "-m", "waitress", "serve", "app:app"], check=True)
+
 
 def clean():
     print("Cleaning up...")

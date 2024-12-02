@@ -48,12 +48,26 @@ def package_application():
     with tarfile.open(f"{APP_NAME}.tar.gz", "w:gz") as tar:
         tar.add(CLONE_DIR, arcname=os.path.basename(CLONE_DIR))
 
-def run_application():
+def run_development_server_application():
     print("Running the application...")
     # Determine the python path based on the operating system
     python_path = os.path.join(VENV_DIR, "Scripts", "python") if os.name == "nt" else os.path.join(VENV_DIR, "Scripts", "python")
     app_path = os.path.join(CLONE_DIR, "app.py")
     subprocess.run([python_path, app_path], check=True)
+
+def run_production_server_application():
+    print("Running the application with Gunicorn...")
+    # Determine the Python path based on the operating system
+    python_path = os.path.join(VENV_DIR, "Scripts", "python") if os.name == "nt" else os.path.join(VENV_DIR, "Scripts", "python")
+
+    # Gunicorn command: running Flask with multiple worker processes
+    gunicorn_cmd = [
+        python_path,
+        # "-w", "4",                   # Number of worker processes
+        # "-b", "0.0.0.0:5000",        # Bind to all IP addresses on port 5000
+        "app:app"                    # app refers to the Flask app instance inside 'app.py'
+    ]
+    subprocess.run(gunicorn_cmd, check=True)
 
 def clean():
     print("Cleaning up...")
@@ -71,7 +85,7 @@ def main(target):
         install_dependencies()
         run_tests()
         package_application()
-        run_application()
+        run_production_server_application()
     elif target == "clean":
         clean()
     else:

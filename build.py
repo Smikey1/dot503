@@ -59,7 +59,8 @@ def run_development_server_application():
 def run_production_server_application():
     print("Running the application with Gunicorn...")
     print("Running on http://127.0.0.1:5000")
-
+    install_dependencies()
+    subprocess.run(["python", "--version"], check=True)
     # For Windows, use Waitress instead of Gunicorn
     from waitress import serve
     from app import app  # Import your Flask app instance

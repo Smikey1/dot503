@@ -57,17 +57,12 @@ def run_development_server_application():
 
 def run_production_server_application():
     print("Running the application with Gunicorn...")
-    # Determine the Python path based on the operating system
-    python_path = os.path.join(VENV_DIR, "Scripts", "python") if os.name == "nt" else os.path.join(VENV_DIR, "Scripts", "python")
+    print("Running on http://127.0.0.1:5000")
 
-    # Gunicorn command: running Flask with multiple worker processes
-    gunicorn_cmd = [
-        python_path,
-        # "-w", "4",                   # Number of worker processes
-        # "-b", "0.0.0.0:5000",        # Bind to all IP addresses on port 5000
-        "app:app"                    # app refers to the Flask app instance inside 'app.py'
-    ]
-    subprocess.run(gunicorn_cmd, check=True)
+    # For Windows, use Waitress instead of Gunicorn
+    from waitress import serve
+    from app import app  # Import your Flask app instance
+    serve(app, host='0.0.0.0', port=5000)  # Run with Waitress
 
 def clean():
     print("Cleaning up...")

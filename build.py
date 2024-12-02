@@ -25,7 +25,8 @@ def create_virtualenv():
         print(f"Creating virtual environment in {VENV_DIR}...")
         subprocess.run(["python", "-m", "venv", VENV_DIR], check=True)
         # Activate the virtual environment
-        activate_script = os.path.join(VENV_DIR, "Scripts", "activate") if os.name == "nt" else os.path.join(VENV_DIR, "Scripts", "activate")
+        activate_script = os.path.join(VENV_DIR, "Scripts", "activate") if os.name == "nt" else os.path.join(VENV_DIR, "bin", "activate")
+        subprocess.run(["python", "--version"], check=True)
         print("Activating the virtual environment...")
         subprocess.run(activate_script, shell=True, check=True)
 
@@ -51,7 +52,7 @@ def package_application():
 def run_development_server_application():
     print("Running the application...")
     # Determine the python path based on the operating system
-    python_path = os.path.join(VENV_DIR, "Scripts", "python") if os.name == "nt" else os.path.join(VENV_DIR, "Scripts", "python")
+    python_path = os.path.join(VENV_DIR, "Scripts", "python") if os.name == "nt" else os.path.join(VENV_DIR, "bin", "python")
     app_path = os.path.join(CLONE_DIR, "app.py")
     subprocess.run([python_path, app_path], check=True)
 

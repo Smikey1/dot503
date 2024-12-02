@@ -24,17 +24,22 @@ def create_virtualenv():
     if not os.path.exists(VENV_DIR):
         print(f"Creating virtual environment in {VENV_DIR}...")
         subprocess.run(["python", "-m", "venv", VENV_DIR], check=True)
-        # Activate the virtual environment
-        activate_script = os.path.join(VENV_DIR, "Scripts", "activate") if os.name == "nt" else os.path.join(VENV_DIR, "bin", "activate")
-        subprocess.run(["python", "--version"], check=True)
-        print("Activating the virtual environment...")
-        subprocess.run(activate_script, shell=True, check=True)
+
+    # Directly use the virtual environment's python executable
+    python_path = os.path.join(VENV_DIR, "Scripts", "python") if os.name == "nt" else os.path.join(VENV_DIR, "bin", "python")
+    print(f"Using Python from virtual environment: {python_path}")
+    subprocess.run([python_path, "-m", "ensurepip", "--upgrade"], check=True)
+    subprocess.run([python_path, "-m", "pip", "install", "--upgrade", "pip"], check=True)
+
 
 def install_dependencies():
     print("Installing dependencies...")
-    # Determine the pip path based on the operating system
     pip_path = os.path.join(VENV_DIR, "Scripts", "pip") if os.name == "nt" else os.path.join(VENV_DIR, "bin", "pip")
     subprocess.run([pip_path, "install", "-r", os.path.join(CLONE_DIR, REQUIREMENTS)], check=True)
+
+def verify_dependencies():
+    python_path = os.path.join(VENV_DIR, "Scripts", "python") if os.name == "nt" else os.path.join(VENV_DIR, "bin", "python")
+    subprocess.run([python_path, "-m", "pip", "show", "waitress"], check=True)
 
 def run_tests():
     print("Running tests...")
@@ -59,7 +64,6 @@ def run_development_server_application():
 def run_production_server_application():
     print("Running the application with Gunicorn...")
     print("Running on http://127.0.0.1:5000")
-    install_dependencies()
     subprocess.run(["python", "--version"], check=True)
     # For Windows, use Waitress instead of Gunicorn
     from waitress import serve
@@ -80,6 +84,7 @@ def main(target):
         clone()
         create_virtualenv()
         install_dependencies()
+        verify_dependencies()
         run_tests()
         package_application()
         run_production_server_application()

@@ -54,3 +54,27 @@ To remove all the build artifacts, virtual environments, and other temporary fil
 python build.py clean
 
 This will clean up the repository by removing all generated files and directories that are no longer needed.
+
+5. Jenkins Integration (CI/CD Pipeline)
+--> Use declaratative jenkins pipeline to do automatic build inside your machine. If you are useing AWS dont forget to open the port 80, 443, 3000, 8080, 9000
+a. Set up GitHub Webhook for Jenkins
+i) To trigger builds automatically from GitHub:
+ii) Go to GitHub Repository -> Settings -> Webhooks.
+
+Add a new webhook:
+i) Payload URL: http://<your-jenkins-server>/github-webhook/
+ii) Content type: application/json
+iii) Which events would you like to trigger this webhook?: Select Just the push event.
+
+2. Jenkins Pipeline Configuration
+The pipeline is configured to:
+
+Clone the repository from GitHub.
+Build the Docker image.
+--> Available as Dockerfile from github
+Run the Docker container.
+Deploy the application and display the link to access it.
+
+Docker Integration
+The Dockerfile is used to build the application image and run the Flask application using Gunicorn.
+Nginx forwards traffic from the subdomain hira-dot503.twugteam.com to the Flask app running on port 9000.

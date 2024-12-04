@@ -63,7 +63,7 @@ def run_development_server_application():
 
 def run_production_server_application():
     print("Running the application with Gunicorn...")
-    host = "0.0.0.0"
+    host = "13.237.230.144"
     port = 9000
     print(f"Running on http://{host}:{port}")
 

@@ -25,21 +25,21 @@ pipeline {
                     sh 'docker ps -q -f name=$DOCKER_CONTAINER | xargs --no-run-if-empty docker stop | xargs --no-run-if-empty docker rm'
                     
                     // Run the container
-                    sh 'docker run -d --name $DOCKER_CONTAINER -p 3000:3000 $DOCKER_IMAGE'
+                    sh 'docker run -d --name $DOCKER_CONTAINER -p 9000:9000 $DOCKER_IMAGE'
                 }
             }
         }
-        stage('Post-Deployment') {
+ stage('Post-Deployment') {
             steps {
                 script {
-                    echo 'Deployment complete. Access the app at http://54.206.186.43:3000'
+                    echo 'Deployment complete. Access the app at http://13.237.230.144:9000'
                 }
             }
         }
     }
     post {
         always {
-            // Clean up by stopping and removing the container
+            // Cleanup after the deployment
             sh 'docker stop $DOCKER_CONTAINER || true'
             sh 'docker rm $DOCKER_CONTAINER || true'
         }

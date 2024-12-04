@@ -29,19 +29,13 @@ pipeline {
                 }
             }
         }
- stage('Post-Deployment') {
+        stage('Post-Deployment') {
             steps {
                 script {
+                    // Display the access URL of the deployed app
                     echo 'Deployment complete. Access the app at http://13.237.230.144:9000'
                 }
             }
-        }
-    }
-    post {
-        always {
-            // Cleanup after the deployment
-            sh 'docker stop $DOCKER_CONTAINER || true'
-            sh 'docker rm $DOCKER_CONTAINER || true'
         }
     }
 }

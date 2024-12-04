@@ -23,7 +23,7 @@ RUN python -m venv venv && \
     ./venv/bin/pip install -r requirements.txt
 
 # Step 7: Expose port 3000 for the application
-EXPOSE 3000
+EXPOSE 9000
 
 # Step 8: Run the application with Waitress on port 9000
 CMD ["./venv/bin/python", "-m", "waitress", "serve", "app:app", "--listen=0.0.0.0:9000"]

@@ -78,3 +78,5 @@ Deploy the application and display the link to access it.
 Docker Integration
 The Dockerfile is used to build the application image and run the Flask application using Gunicorn.
 Nginx forwards traffic from the subdomain hira-dot503.twugteam.com to the Flask app running on port 9000.
+
+End

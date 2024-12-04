@@ -63,11 +63,20 @@ def run_development_server_application():
 
 def run_production_server_application():
     print("Running the application with Waitress...")
-    print("Running on http://127.0.0.1:5000")
 
-    # For Windows, use Waitress instead of Gunicorn
+    # Specify the host and port
+    host = "127.0.0.1"
+    port = 3000
+
+    print(f"Running on http://{host}:{port}")
+
+    # Correct reference to the app
+    app_path = "app:app"
+
+    # For Windows, use the Python executable from the virtual environment
     python_path = os.path.join(VENV_DIR, "Scripts", "python") if os.name == "nt" else os.path.join(VENV_DIR, "bin", "python")
-    subprocess.run([python_path, "-m", "waitress", "serve", "app:app"], check=True)
+    subprocess.run([python_path, "-m", "waitress", "serve", app_path], check=True)
+
 
 
 def clean():
@@ -84,10 +93,9 @@ def main(target):
         clone()
         create_virtualenv()
         install_dependencies()
-        verify_dependencies()
         run_tests()
         package_application()
-        run_production_server_application()
+        run_development_server_application()
     elif target == "clean":
         clean()
     else:

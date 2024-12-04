@@ -62,20 +62,13 @@ def run_development_server_application():
     subprocess.run([python_path, app_path], check=True)
 
 def run_production_server_application():
-    print("Running the application with Waitress...")
-
-    # Specify the host and port
-    host = "127.0.0.1"
+    print("Running the application with Gunicorn...")
+    host = "0.0.0.0"
     port = 9000
-
     print(f"Running on http://{host}:{port}")
 
-    # Correct reference to the app
-    app_path = "app:app"
-
-    # For Windows, use the Python executable from the virtual environment
-    python_path = os.path.join(VENV_DIR, "Scripts", "python") if os.name == "nt" else os.path.join(VENV_DIR, "bin", "python")
-    subprocess.run([python_path, "-m", "waitress", "serve", app_path], check=True)
+    # Run the application with Gunicorn on the specified port
+    subprocess.run(["./venv/bin/gunicorn", "-b", f"{host}:{port}", "app:app"], check=True)
 
 
 

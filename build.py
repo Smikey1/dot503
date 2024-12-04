@@ -66,7 +66,7 @@ def run_production_server_application():
 
     # Specify the host and port
     host = "127.0.0.1"
-    port = 3000
+    port = 9000
 
     print(f"Running on http://{host}:{port}")
 
